@@ -39,9 +39,17 @@ class ForwardKinematics:
         theta1, theta2, theta3 = self.joint_positions
 
         # Calculate forward kinematics based on the known link lengths
+        # Using https://medium.com/@ringlayer/forward-kinematics-calculation-for-robotic-arm-6393934f847
+        # Z-axis
+        joint2_to_3_z = sin(theta2) * L2
+        theta4 = 3.14 - (theta2 + 3.14/2)
+        theta5 = theta3 - theta4
+        joint3_to_end_z = cos(theta5) * L3
+        z = L1 + joint2_to_3_z - joint3_to_end_z
+        # X-axis
         x = L1 * cos(theta1) + L2 * cos(theta1 + theta2) + L3 * cos(theta1 + theta2 + theta3)
+        # Y-axis
         y = L1 * sin(theta1) + L2 * sin(theta1 + theta2) + L3 * sin(theta1 + theta2 + theta3)
-        z = 0.0  # Assuming a planar robot (z remains constant)
 
         rospy.loginfo("End Effector Position: x=%.2f, y=%.2f, z=%.2f", x, y, z)
 
