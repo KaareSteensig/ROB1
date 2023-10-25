@@ -2,7 +2,7 @@
 # license removed for brevity
 import rospy
 from dynamixel_msgs.msg import JointState
-from std_msgs.msg import Empty
+from std_msgs.msg import Empty, Float32MultiArray
 
 class is_at_position:
     def __init__(self):
@@ -46,7 +46,7 @@ def start(nodeclass):
     # init node
     rospy.init_node('is_at_position', anonymous=True)
     # make subscribers
-    sub = rospy.Subscriber('/position', Float64MultiArray, nodeclass.request)
+    sub = rospy.Subscriber('/position', Float32MultiArray, nodeclass.request)
     subJoint1 = rospy.Subscriber('/joint1/state', JointState, nodeclass.joint1callback)
     subJoint2 = rospy.Subscriber('/joint2/state', JointState, nodeclass.joint2callback)
     subJoint3 = rospy.Subscriber('/joint3/state', JointState, nodeclass.joint3callback)
