@@ -12,6 +12,12 @@ class is_at_position:
         self.joint1error = None
         self.joint2error = None
         self.joint3error = None
+        self.joint1goal = None
+        self.joint1oldgoal = None
+        self.joint2goal = None
+        self.joint2oldgoal = None
+        self.joint3goal = None
+        self.joint3oldgoal = None
         # prepare publisher
         self.pub = rospy.Publisher('/pathpointreached', Empty, queue_size = 1)
         print('Ready')
@@ -19,18 +25,25 @@ class is_at_position:
     def joint1callback(self, msg):
         print('joint1')
         self.joint1error = msg.error
+        self.joint1goal = msg.goal
 
     def joint2callback(self, msg):
         print('joint2')
         self.joint2error = msg.error
+        self.joint2goal = msg.goal
 
     def joint3callback(self, msg):
         print('joint3')
         self.joint3error = msg.error
+        self.joint3goal = msg.goal
 
     def request(self, msg):
         total = False
         print('request')
+        while ((self.joint1goal == self.joint1oldgoal) and (self.joint2goal == self.joint2oldgoal) and (self.joint3goal == self.joint3oldgoal)):
+            self.joint1oldgoal = self.joint1goal
+            self.joint2oldgoal = self.joint2goal
+            self.joint3oldgoal = self.joint3goal 
         while not total:
             joint1within = ((self.joint1error < self.acceptable) and (self.joint1error > -self.acceptable))
             joint2within = ((self.joint2error < self.acceptable) and (self.joint2error > -self.acceptable))
