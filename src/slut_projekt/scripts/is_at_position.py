@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # license removed for brevity
 import rospy
-from std_msgs.msg import Float64, Empty, Float64MultiArray
+from dynamixel_msgs.msg import JointState
+from std_msgs.msg import Empty
 
 class is_at_position:
     def __init__(self):
         # set acceptabel diff before continueing
-        self.acceptable = 10.0
+        self.acceptable = 0.3
         # prepare empty variables
         self.joint1error = None
         self.joint2error = None
@@ -33,7 +34,7 @@ class is_at_position:
         while not total:
             joint1within = ((self.joint1error < self.acceptable) and (self.joint1error > -self.acceptable))
             joint2within = ((self.joint2error < self.acceptable) and (self.joint2error > -self.acceptable))
-            joint3within = ((self.joint3error < self.acceptable) and (self.joint3 > -self.acceptable)))
+            joint3within = ((self.joint3error < self.acceptable) and (self.joint3error > -self.acceptable))
             #print(joint1within)
             #print(joint2within)
             #print(joint3within)
@@ -46,9 +47,9 @@ def start(nodeclass):
     rospy.init_node('is_at_position', anonymous=True)
     # make subscribers
     sub = rospy.Subscriber('/position', Float64MultiArray, nodeclass.request)
-    subJoint1 = rospy.Subscriber('/joint1/state', dynamixel_msgs/JoinState, nodeclass.joint1callback)
-    subJoint2 = rospy.Subscriber('/joint2/state', dynamixel_msgs/JoinState, nodeclass.joint2callback)
-    subJoint3 = rospy.Subscriber('/joint3/state', dynamixel_msgs/JoinState, nodeclass.joint3callback)
+    subJoint1 = rospy.Subscriber('/joint1/state', JointState, nodeclass.joint1callback)
+    subJoint2 = rospy.Subscriber('/joint2/state', JointState, nodeclass.joint2callback)
+    subJoint3 = rospy.Subscriber('/joint3/state', JointState, nodeclass.joint3callback)
 
 if __name__ == '__main__':
     is_ready = is_at_position()

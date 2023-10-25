@@ -1,0 +1,6 @@
+set(quickui_SETUP_PY_VERSION "1.0.0")
+set(quickui_SETUP_PY_SCRIPTS "scripts/quickui_example.py")
+set(quickui_SETUP_PY_PACKAGES "quickui")
+set(quickui_SETUP_PY_PACKAGE_DIRS "src/quickui")
+set(quickui_SETUP_PY_MODULES "")
+set(quickui_SETUP_PY_MODULE_DIRS "")

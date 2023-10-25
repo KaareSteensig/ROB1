@@ -1,0 +1,8 @@
+prefix=/home/ros/ROB1/catkin_ws/devel
+
+Name: au_crustcrawler_base
+Description: Description of au_crustcrawler_base
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
