@@ -25,17 +25,17 @@ class is_at_position:
     def joint1callback(self, msg):
         print('joint1')
         self.joint1error = msg.error
-        self.joint1goal = msg.goal
+        self.joint1goal = msg.goal_pos
 
     def joint2callback(self, msg):
         print('joint2')
         self.joint2error = msg.error
-        self.joint2goal = msg.goal
+        self.joint2goal = msg.goal_pos
 
     def joint3callback(self, msg):
         print('joint3')
         self.joint3error = msg.error
-        self.joint3goal = msg.goal
+        self.joint3goal = msg.goal_pos
 
     def request(self, msg):
         total = False

@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 
 import rospy
-from std_msgs.msg import Float64, Float32MultiArray
+from std_msgs.msg import Float64, Float32MultiArray, Bool
 from dynamixel_msgs.msg import JointState
 from math import sin, cos, atan2, sqrt, pi
 
 class ForwardKinematics:
     def __init__(self):
         rospy.init_node('forward_kinematics')
+
+        # Subscriber for getting calculation of end point
+        rospy.Subscriber('/endPointReached', Bool, self.calculate_fk)
 
         # Subscriber for joint states
         rospy.Subscriber('/joint1/state', JointState, self.joint1_callback)
@@ -20,18 +23,15 @@ class ForwardKinematics:
         self.current_position_publisher = rospy.Publisher('/currentPosition', Float32MultiArray, queue_size=10)
 
     def joint1_callback(self, data):
-        self.joint_positions[0] = data.current_pos
-        self.calculate_fk()
+        self.joint_positions[0] = msg.current_pos
 
     def joint2_callback(self, data):
-        self.joint_positions[1] = data.current_pos
-        self.calculate_fk()
+        self.joint_positions[1] = msg.current_pos
 
-    def joint3_callback(self, data):
-        self.joint_positions[2] = data.current_pos
-        self.calculate_fk()
+    def joint3_callback(self, msg):
+        self.joint_positions[2] = msg.current_pos
 
-    def calculate_fk(self):
+    def calculate_fk(self, msg):
         L1 = 173.0  # Length from joint 1 to joint 2
         L2 = 215.0  # Length from joint 2 to joint 3
         L3 = 100.0  # Length from joint 3 to end-effector (assuming a fixed end-effector length)
