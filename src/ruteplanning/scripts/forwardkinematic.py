@@ -32,24 +32,27 @@ class ForwardKinematics:
         self.joint_positions[2] = msg.current_pos
 
     def calculate_fk(self, msg):
-        L1 = 173.0  # Length from joint 1 to joint 2
-        L2 = 215.0  # Length from joint 2 to joint 3
-        L3 = 100.0  # Length from joint 3 to end-effector (assuming a fixed end-effector length)
+        L1 = 0  # Length from joint 1 to joint 2
+        L2 = 173.0  # Length from joint 2 to joint 3
+        L3 = 215.0  # Length from joint 3 to end-effector (assuming a fixed end-effector length)
 
         theta1, theta2, theta3 = self.joint_positions
+        theta2 = 3.14/2 - theta2
+        theta3 = 3.14 - theta3
+        rospy.loginfo("Joint Position: theta1=%.2f, theta2=%.2f, theta3=%.2f", theta1, theta2, theta3)
 
         # Calculate forward kinematics based on the known link lengths
         # Using https://medium.com/@ringlayer/forward-kinematics-calculation-for-robotic-arm-6393934f847
         # Z-axis
-        joint2_to_3_z = sin(theta2) * L2
-        theta4 = 3.14 - (theta2 + 3.14/2)
-        theta5 = theta3 - theta4
-        joint3_to_end_z = cos(theta5) * L3
-        z = L1 + joint2_to_3_z - joint3_to_end_z
+        d3 = sin(theta2) * L2
+        theta4 = 3.14 - ((3.14/2 - theta2) + 3.14/2)
+        theta5 = 3.14 - (theta3 + theta4)
+        d6 = sin(theta5) * L3
+        z = L1 + d3 - d6
         # X-axis
         #x = L1 * cos(theta1) + L2 * cos(theta1 + theta2) + L3 * cos(theta1 + theta2 + theta3)
         d4 = cos(theta2) * L2
-        d5 = sin(theta5) * L3
+        d5 = cos(theta5) * L3
         d1 = d4 + d5
         x = cos(theta1) * d1
         # Y-axis
