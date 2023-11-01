@@ -1,0 +1,8 @@
+prefix=/home/ros/ROB1/catkin_ws/install
+
+Name: inversekinematics
+Description: Description of inversekinematics
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

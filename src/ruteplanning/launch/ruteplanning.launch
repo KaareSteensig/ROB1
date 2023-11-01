@@ -1,0 +1,16 @@
+<launch>
+
+    <include file="$(find au_crustcrawler_base)/launch/base/base.launch"/>
+
+    --wait
+
+    <node name="arMover" pkg="inversekinematics" type="moveArm.py" output="screen"></node>
+    <node name="routeplanner" pkg="ruteplanning" type="routeplanner.py" output="screen"></node>
+    <node name="is_at_position" pkg="ruteplanning" type="is_at_position.py" output="screen"></node>
+    <node name="forwardkinematic" pkg="ruteplanning" type="forwardkinematic.py" output="screen"></node>
+
+    <arg name="topic_name" default="/endPointReached" />
+    <arg name="message" default="True" />
+    <node pkg="rostopic" type="rostopic" name="rostopic_pub_node" output="screen" args="pub $(arg topic_name) std_msgs/Bool 'data: $(arg message)'" />
+
+</launch>

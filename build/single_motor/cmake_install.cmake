@@ -47,7 +47,3 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/single_motor" TYPE FILE FILES "/home/ros/ROB1/catkin_ws/src/single_motor/package.xml")
 endif()
 
-if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/single_motor" TYPE PROGRAM FILES "/home/ros/ROB1/catkin_ws/build/single_motor/catkin_generated/installspace/single_motor_test.py")
-endif()
-
