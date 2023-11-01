@@ -22,10 +22,10 @@ class ForwardKinematics:
         # Publisher for current position
         self.current_position_publisher = rospy.Publisher('/currentPosition', Float32MultiArray, queue_size=10)
 
-    def joint1_callback(self, data):
+    def joint1_callback(self, msg):
         self.joint_positions[0] = msg.current_pos
 
-    def joint2_callback(self, data):
+    def joint2_callback(self, msg):
         self.joint_positions[1] = msg.current_pos
 
     def joint3_callback(self, msg):
