@@ -1,0 +1,5 @@
+<launch>
+
+    <include file="$(find ruteplanning)/launch/ruteplanning.launch"/>
+
+</launch>
