@@ -1,7 +1,7 @@
 prefix=/home/ros/ROB1/catkin_ws/install
 
-Name: gcode_parser
-Description: Description of gcode_parser
+Name: area_finder
+Description: Description of area_finder
 Version: 0.0.0
 Cflags: 
 Libs: -L${prefix}/lib 

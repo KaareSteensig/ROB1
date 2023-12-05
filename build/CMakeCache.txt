@@ -263,6 +263,12 @@ _gtest_INCLUDES:FILEPATH=/usr/include/gtest/gtest.h
 _gtest_SOURCES:FILEPATH=/usr/src/gtest/src/gtest.cc
 
 //Value Computed by CMake
+area_finder_BINARY_DIR:STATIC=/home/ros/ROB1/catkin_ws/build/area_finder
+
+//Value Computed by CMake
+area_finder_SOURCE_DIR:STATIC=/home/ros/ROB1/catkin_ws/src/area_finder
+
+//Value Computed by CMake
 au_crustcrawler_base_BINARY_DIR:STATIC=/home/ros/ROB1/catkin_ws/build/au_crustcrawler_base
 
 //Value Computed by CMake
@@ -312,6 +318,12 @@ dynamixel_tutorials_BINARY_DIR:STATIC=/home/ros/ROB1/catkin_ws/build/dynamixel_m
 
 //Value Computed by CMake
 dynamixel_tutorials_SOURCE_DIR:STATIC=/home/ros/ROB1/catkin_ws/src/dynamixel_motor/dynamixel_tutorials
+
+//Value Computed by CMake
+gcode_parser_BINARY_DIR:STATIC=/home/ros/ROB1/catkin_ws/build/gcode_parser
+
+//Value Computed by CMake
+gcode_parser_SOURCE_DIR:STATIC=/home/ros/ROB1/catkin_ws/src/gcode_parser
 
 //The directory containing a CMake configuration file for gencpp.
 gencpp_DIR:PATH=/opt/ros/kinetic/share/gencpp/cmake
@@ -545,7 +557,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=15
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=17
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

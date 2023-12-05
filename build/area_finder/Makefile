@@ -135,14 +135,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/ros/ROB1/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ros/ROB1/catkin_ws/build/CMakeFiles /home/ros/ROB1/catkin_ws/build/gcode_parser/CMakeFiles/progress.marks
-	cd /home/ros/ROB1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 gcode_parser/all
+	cd /home/ros/ROB1/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ros/ROB1/catkin_ws/build/CMakeFiles /home/ros/ROB1/catkin_ws/build/area_finder/CMakeFiles/progress.marks
+	cd /home/ros/ROB1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 area_finder/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ros/ROB1/catkin_ws/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/ros/ROB1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 gcode_parser/clean
+	cd /home/ros/ROB1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 area_finder/clean
 .PHONY : clean
 
 # The main clean target
@@ -152,12 +152,12 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/ros/ROB1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 gcode_parser/preinstall
+	cd /home/ros/ROB1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 area_finder/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/ros/ROB1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 gcode_parser/preinstall
+	cd /home/ros/ROB1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 area_finder/preinstall
 .PHONY : preinstall/fast
 
 # clear depends

@@ -1,4 +1,4 @@
-# Install script for directory: /home/ros/ROB1/catkin_ws/src/gcode_parser
+# Install script for directory: /home/ros/ROB1/catkin_ws/src/area_finder
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -33,17 +33,21 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ros/ROB1/catkin_ws/build/gcode_parser/catkin_generated/installspace/gcode_parser.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ros/ROB1/catkin_ws/build/area_finder/catkin_generated/installspace/area_finder.pc")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gcode_parser/cmake" TYPE FILE FILES
-    "/home/ros/ROB1/catkin_ws/build/gcode_parser/catkin_generated/installspace/gcode_parserConfig.cmake"
-    "/home/ros/ROB1/catkin_ws/build/gcode_parser/catkin_generated/installspace/gcode_parserConfig-version.cmake"
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/area_finder/cmake" TYPE FILE FILES
+    "/home/ros/ROB1/catkin_ws/build/area_finder/catkin_generated/installspace/area_finderConfig.cmake"
+    "/home/ros/ROB1/catkin_ws/build/area_finder/catkin_generated/installspace/area_finderConfig-version.cmake"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gcode_parser" TYPE FILE FILES "/home/ros/ROB1/catkin_ws/src/gcode_parser/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/area_finder" TYPE FILE FILES "/home/ros/ROB1/catkin_ws/src/area_finder/package.xml")
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/area_finder" TYPE PROGRAM FILES "/home/ros/ROB1/catkin_ws/build/area_finder/catkin_generated/installspace/ArucoDetectionRos.py")
 endif()
 

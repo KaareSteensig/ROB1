@@ -67,14 +67,14 @@ set(gcode_parser_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(gcode_parser_SOURCE_PREFIX /home/user/catkin_ws/src/gcode_parser)
-  set(gcode_parser_DEVEL_PREFIX /home/user/catkin_ws/devel)
+  set(gcode_parser_SOURCE_PREFIX /home/ros/ROB1/catkin_ws/src/gcode_parser)
+  set(gcode_parser_DEVEL_PREFIX /home/ros/ROB1/catkin_ws/devel)
   set(gcode_parser_INSTALL_PREFIX "")
   set(gcode_parser_PREFIX ${gcode_parser_DEVEL_PREFIX})
 else()
   set(gcode_parser_SOURCE_PREFIX "")
   set(gcode_parser_DEVEL_PREFIX "")
-  set(gcode_parser_INSTALL_PREFIX /home/user/catkin_ws/install)
+  set(gcode_parser_INSTALL_PREFIX /home/ros/ROB1/catkin_ws/install)
   set(gcode_parser_PREFIX ${gcode_parser_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/user/catkin_ws/install/lib;/home/user/catkin_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/ros/ROB1/catkin_ws/install/lib;/home/ros/ROB1/catkin_ws/devel/lib;/opt/ros/kinetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
