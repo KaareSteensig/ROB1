@@ -1,5 +1,8 @@
 <launch>
 
     <include file="$(find ruteplanning)/launch/ruteplanning.launch"/>
+    --wait
+    <include file="$(find area_finder)/launch/area_finder.launch"/>
+    <include file="$(find gcode_parser)/launch/gcode_parser.launch"/>
 
 </launch>

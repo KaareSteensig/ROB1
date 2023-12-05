@@ -1,0 +1,5 @@
+<launch>
+
+    <node name="gcode_parser" pkg="gcode_parser" type="gcode_parser.py" output="screen"></node>
+
+</launch>
