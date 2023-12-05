@@ -1,5 +1,5 @@
 <launch>
 
-    <node name="area_finder" pkg="area_finder" type="forwardkinematic.py" output="screen"></node>
+    <node name="area_finder" pkg="area_finder" type="ArucoDetectionRos.py" output="screen"></node>
 
 </launch>
