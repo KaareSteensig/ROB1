@@ -1,2 +1,2 @@
-au_crustcrawler_base:beginner_tutorials:dynamixel_motor/dynamixel_controllers:dynamixel_motor/dynamixel_driver:dynamixel_motor/dynamixel_motor:dynamixel_motor/dynamixel_msgs:dynamixel_motor/dynamixel_tutorials:inversekinematics:quickui:ruteplanning:single_motor:slut_projekt
--DCATKIN_DEVEL_PREFIX=/home/ros/ROB1/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ros/ROB1/catkin_ws/install -G Unix Makefiles
+beginner_tutorials:inversekinematics:ruteplanning:single_motor:slut_projekt
+-DCATKIN_DEVEL_PREFIX=/home/user/ROB1/devel -DCMAKE_INSTALL_PREFIX=/home/user/ROB1/install -G Unix Makefiles
