@@ -8,7 +8,7 @@ class coordinatechange:
         # prepare variables
         self.offsets = [75.0, 75.0]
         # prepare publisher
-        self.pub = rospy.Publisher('/position', Float32MultiArray, queue_size = 1)
+        self.pub = rospy.Publisher('/goalPosition', Float32MultiArray, queue_size = 1)
         # prepare subscriber
         self.sub = rospy.Subscriber('/gcode_position', Float32MultiArray, self.converter)
         self.sub = rospy.Subscriber('/offset', Float32MultiArray, self.offset)
