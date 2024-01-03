@@ -47,3 +47,11 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gcode_parser" TYPE FILE FILES "/home/ros/ROB1/catkin_ws/src/gcode_parser/package.xml")
 endif()
 
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/gcode_parser" TYPE PROGRAM FILES "/home/ros/ROB1/catkin_ws/build/gcode_parser/catkin_generated/installspace/gcode_parser.py")
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/gcode_parser" TYPE PROGRAM FILES "/home/ros/ROB1/catkin_ws/build/gcode_parser/catkin_generated/installspace/convert_coordinates_gcode.py")
+endif()
+

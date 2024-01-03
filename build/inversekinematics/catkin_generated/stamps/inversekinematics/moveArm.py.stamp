@@ -34,7 +34,7 @@ def callback(data,args):
 
     #test = (L1**2+L2**2-L**2)/(2*L1*L2)
 
-    theta2 = (math.acos((L1*L1+L2*L2-L*L)/(2*L1*L2)))-math.pi
+    theta2 = -(math.acos((L1*L1+L2*L2-L*L)/(2*L1*L2)))+math.pi
 
     rospy.loginfo(rospy.get_caller_id() + " theta2 - %f", theta2/(2*math.pi)*360)
 
@@ -46,7 +46,7 @@ def callback(data,args):
 
     rospy.loginfo(rospy.get_caller_id() + " beta - %f", beta/(2*math.pi)*360)
 
-    theta1 = (alpha - beta)+(math.pi/2)
+    theta1 = -(alpha + beta)+(math.pi/2)
 
     rospy.loginfo(rospy.get_caller_id() + " theta1 - %f", theta1/(2*math.pi)*360)
 
