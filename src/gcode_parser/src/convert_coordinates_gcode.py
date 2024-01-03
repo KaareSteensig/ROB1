@@ -11,7 +11,7 @@ class coordinatechange:
         self.sub = rospy.Subscriber('/gcode_position', Float32MultiArray, self.converter)
 
     def converter(self, msg):
-        corrected_position = [msg.data[0]+50, msg.data[1]+50, msg.data[2]-50]
+        corrected_position = [msg.data[0]+60, msg.data[1]+60, msg.data[2]-50]
         self.pub.publish(Float32MultiArray(data = corrected_position))
 
 def start():
