@@ -25,7 +25,8 @@ class RoutePlanner:
 
         # Publisher
         self.position_publisher = rospy.Publisher('/position', Float32MultiArray, queue_size=10)
-        self.current_position_publisher = rospy.Publisher('/currentPosition', Float32MultiArray, queue_size=10)
+        self.end_point_publisher = rospy.Publisher('/endPointReached', Bool, queue_size=1)
+        # self.current_position_publisher = rospy.Publisher('/currentPosition', Float32MultiArray, queue_size=10)
 
 
     def goal_position_callback(self, data):
@@ -87,6 +88,10 @@ class RoutePlanner:
 
             msg = Float32MultiArray(data=next_position)
             self.position_publisher.publish(msg)
+        else:
+            #publish til end point reached
+            msg = True
+            self.end_point_publisher.publish(msg)
 
     def run(self):
         rate = rospy.Rate(20)
