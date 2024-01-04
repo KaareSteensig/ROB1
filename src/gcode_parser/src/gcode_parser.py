@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import rospy
-from std_msgs.msg import String
+from std_msgs.msg import String, Float32MultiArray
 import argparse
 
 # Define variables to store the current state of coordinates, feed rate, and extruder status.
@@ -40,15 +40,15 @@ def extract_gcode(line):
         if word.startswith("G"):
             gcode = word
         elif word.startswith("X"):
-            x = word[1:]
+            x = float(word[1:])
         elif word.startswith("Y"):
-            y = word[1:]
+            y = float(word[1:])
         elif word.startswith("Z"):
-            z = word[1:]
+            z = float(word[1:])
         elif word.startswith("F"):
-            feed_rate = word[1:]
+            feed_rate = float(word[1:])
         elif word.startswith("E"):
-            extrusion = word[1:]
+            extrusion = float(word[1:])
         elif word.startswith("M"):
             mcode = word
 
@@ -56,8 +56,8 @@ def extract_gcode(line):
 
 def main():
     rospy.init_node('gcode_parser_node', anonymous=True)
-    gcode_pub = rospy.Publisher('gcode', String, queue_size=10)
-    rate = rospy.Rate(1) # 1hz
+    position_pub = rospy.Publisher('/gcode_position', Float32MultiArray, queue_size=10)
+    rate = rospy.Rate(4) # 1hz
     
     parser = argparse.ArgumentParser(description="Extract and interpret G-code information from a G-code file.")
     parser.add_argument("gcode_file", help="Path to the G-code file")
@@ -69,6 +69,10 @@ def main():
             gcode, x, y, z, feed_rate, extrusion, extruder_on = update_current_state(line)
 
             if args.output == 1 and (gcode or x or y or z or feed_rate or extrusion or extruder_on):
+                position_data = [x, y, z]
+                position_msg = Float32MultiArray(data=position_data)
+                position_pub.publish(position_msg)
+
                 output_line = ["G-code: {}".format(gcode), "X: {}".format(x), "Y: {}".format(y), "Z: {}".format(z), "F: {}".format(feed_rate)]
 
                 if extruder_on:
@@ -78,9 +82,9 @@ def main():
 
                 gcode_str = ", ".join(output_line)
                 rospy.loginfo(gcode_str)
-                gcode_pub.publish(gcode_str)
                 
                 rate.sleep()
 
 if __name__ == "__main__":
     main()
+

@@ -14,7 +14,7 @@ class coordinatechange:
         self.sub = rospy.Subscriber('/offset', Float32MultiArray, self.offset)
 
     def converter(self, msg):
-        corrected_position = [(msg.data[0]) + (self.offsets[0]), (msg.data[1]) + (self.offsets[1]), (msg.data[2]) - 110]
+        corrected_position = [msg.data[0]+75, msg.data[1]+75, msg.data[2]-110]
         self.pub.publish(Float32MultiArray(data = corrected_position))
 
     def offset(self, msg):
