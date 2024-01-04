@@ -4,31 +4,30 @@ from std_msgs.msg import String, Float32MultiArray
 import argparse
 
 # Define variables to store the current state of coordinates, feed rate, and extruder status.
-current_x, current_y, current_z, current_feed_rate, current_extrusion, extruder_on = 1, 1, 1, None, None, False
-extruder_on = False  # Assume extruder is initially off
+current_x, current_y, current_z = 1, 1, 1
 
 def update_current_state(line):
-    gcode, x, y, z, feed_rate, extrusion, mcode = extract_gcode(line)
-
+    gcode, x, y, z, feed_rate, extruder_on, mcode = extract_gcode(line)
+    current_feed_rate = None
     if x is not None:
-        current_x = x
+        current_x1 = x
     if y is not None:
-        current_y = y
+        current_y1 = y
     if extruder_on:
-        current_z = 0  # Set Z to 0 when the extruder is on
+        current_z1 = 0  # Set Z to 0 when the extruder is on
     else:
         current_z = 5  # Set Z to 5 when the extruder is off
     if feed_rate is not None:
         current_feed_rate = feed_rate
-    if extrusion is not None:
-        current_extrusion = extrusion
+    if extruder_on is not None:
+        current_extrusion = extruder_on
     if mcode is not None:
         if mcode == "M101":
             extruder_on = True
         elif mcode == "M103":
             extruder_on = False
 
-    return gcode, current_x, current_y, current_z, current_feed_rate, current_extrusion, extruder_on
+    return gcode, current_x1, current_y1, current_z1, current_feed_rate, current_extrusion, extruder_on
 
 def extract_gcode(line):
     gcode = None
@@ -59,10 +58,12 @@ def extract_gcode(line):
     return gcode, x, y, z, feed_rate, extrusion, mcode
 
 def current_position_callback(msg):
-    # global current_x, current_y, current_z
     current_x, current_y, current_z = msg.data[0], msg.data[1], msg.data[2]
 
 def main():
+    global current_feed_rate, current_extrusion, extruder_on
+    current_feed_rate, current_extrusion, extruder_on = None, None, False
+    current_x, current_y, current_z = 1, 1, 1
     rospy.init_node("gcode_parser_node", anonymous=True)
     position_pub = rospy.Publisher('/gcode_position', Float32MultiArray, queue_size=10)
 

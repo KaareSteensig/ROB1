@@ -6,24 +6,23 @@ from std_msgs.msg import Float32MultiArray
 class coordinatechange:
     def __init__(self):
         # prepare variables
-        self.offset = [75.0, 75.0]
+        self.offsets = [75.0, 75.0]
         # prepare publisher
-        self.pub = rospy.Publisher('/position', Float32MultiArray, queue_size = 1)
+        self.pub = rospy.Publisher('/goalPosition', Float32MultiArray, queue_size = 1)
         # prepare subscriber
         self.sub = rospy.Subscriber('/gcode_position', Float32MultiArray, self.converter)
         self.sub = rospy.Subscriber('/offset', Float32MultiArray, self.offset)
 
     def converter(self, msg):
-        corrected_position = [(msg.data[0]) + (self.offset[0]), (msg.data[1]) + (self.offset[1]), (msg.data[2]) - 110]
+        corrected_position = [msg.data[0]+self.offsets[0], msg.data[1]+self.offsets[1], msg.data[2]-145]
         self.pub.publish(Float32MultiArray(data = corrected_position))
 
     def offset(self, msg):
-        #off0 = msg.data[0]
-        #self.offset[0] = off0
-        #off1 = msg.data[1]
-        #self.offset[1] = off1
-        #print("offset updated")
-        pass
+        off0 = msg.data[0]
+        self.offsets[0] = off0
+        off1 = msg.data[1]
+        self.offsets[1] = off1
+        print("offset updated")
 
 def start():
     # init node

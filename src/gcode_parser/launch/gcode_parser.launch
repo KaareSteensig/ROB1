@@ -1,6 +1,5 @@
 <launch>
 
-    <node name="gcode_parser" pkg="gcode_parser" type="gcode_parser.py" output="screen" args="~/catkin_ws/src/gcode_parser/src/ringTester.gcode"></node>
     <node name="gcode_converter" pkg="gcode_parser" type="convert_coordinates_gcode.py" output="screen"></node>
 
 </launch>

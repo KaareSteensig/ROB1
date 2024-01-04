@@ -14,7 +14,7 @@ def callback(data,args):
     rospy.loginfo(rospy.get_caller_id() + "I heard X=%f and Y=%f and Z=%f", data.data[0],data.data[1],data.data[2])
 
     L1 = 173
-    L2 = 215
+    L2 = 250
 
     X = data.data[0]
     Y = data.data[1]
