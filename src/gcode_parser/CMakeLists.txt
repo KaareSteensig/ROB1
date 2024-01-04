@@ -159,8 +159,8 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
-  scripts/gcode_parser.py
-  scripts/convert_coordinates_gcode.py
+  src/gcode_parser.py
+  src/convert_coordinates_gcode.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
