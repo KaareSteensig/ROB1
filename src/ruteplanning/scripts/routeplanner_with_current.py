@@ -56,7 +56,7 @@ class RoutePlanner:
                 self.path = [self.current_position, self.goal_position]
                 
             else:
-                #self.currentPosition_published = False  # Flag to track if currentPosition has been published
+                self.currentPosition_published = False  # Flag to track if currentPosition has been published
                 path = []
                 for i in range(num_points):
                     t = float(i) / float(num_points - 1)  # Correct interpolation parameter
@@ -94,14 +94,14 @@ class RoutePlanner:
         while not rospy.is_shutdown():
             if self.goal_reached:
                 self.publish_next_position()
-            #if self.path and not self.currentPosition_published:
+            if self.path and not self.currentPosition_published:
                 #rospy.loginfo("path found")
                 # If there is a path, publish the last point as the current position
-                #if self.path_idx >= len(self.path) and not self.currentPosition_published:
-                    #rospy.loginfo("publishing to current position")
-                    #current_position_msg = Float32MultiArray(data=self.path[-1])
-                    #self.current_position_publisher.publish(current_position_msg)
-                    #self.currentPosition_published = True  # Set the flag to True
+                if self.path_idx >= len(self.path) and not self.currentPosition_published:
+                    rospy.loginfo("publishing to current position")
+                    current_position_msg = Float32MultiArray(data=self.path[-1])
+                    self.current_position_publisher.publish(current_position_msg)
+                    self.currentPosition_published = True  # Set the flag to True
             rate.sleep()
 
 if __name__ == '__main__':
