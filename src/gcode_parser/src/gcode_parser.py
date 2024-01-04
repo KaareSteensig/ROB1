@@ -8,15 +8,20 @@ current_x, current_y, current_z = 1, 1, 1
 
 def update_current_state(line):
     gcode, x, y, z, feed_rate, extruder_on, mcode = extract_gcode(line)
-    current_feed_rate = None
+    current_feed_rate, current_extrusion = None, None
+    current_x1, current_y1, current_z1 = None, None, None
     if x is not None:
         current_x1 = x
+    else:
+        current_x1 = 0
     if y is not None:
         current_y1 = y
+    else:
+        current_y1 = 0
     if extruder_on:
         current_z1 = 0  # Set Z to 0 when the extruder is on
     else:
-        current_z = 5  # Set Z to 5 when the extruder is off
+        current_z1 = 5  # Set Z to 5 when the extruder is off
     if feed_rate is not None:
         current_feed_rate = feed_rate
     if extruder_on is not None:
@@ -58,10 +63,12 @@ def extract_gcode(line):
     return gcode, x, y, z, feed_rate, extrusion, mcode
 
 def current_position_callback(msg):
+    global current_x, current_y, current_z
     current_x, current_y, current_z = msg.data[0], msg.data[1], msg.data[2]
+    print(current_x)
 
 def main():
-    global current_feed_rate, current_extrusion, extruder_on
+    global current_x, current_y, current_z, current_feed_rate, current_extrusion, extruder_on
     current_feed_rate, current_extrusion, extruder_on = None, None, False
     current_x, current_y, current_z = 1, 1, 1
     rospy.init_node("gcode_parser_node", anonymous=True)
@@ -97,8 +104,8 @@ def main():
                             gcode_str = ", ".join(output_line)
                             rospy.loginfo(gcode_str)
 
-                    # Reset current_x, current_y, and current_z after publishing
-                    current_x, current_y, current_z = None, None, None
+		            # Reset current_x, current_y, and current_z after publishing
+		            current_x, current_y, current_z = None, None, None
 
 if __name__ == "__main__":
     try:
