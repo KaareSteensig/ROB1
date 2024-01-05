@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import rospy
 from std_msgs.msg import String, Float32MultiArray
-import argparse
+from custom_msgs.msg import GCodeInfo  # You may need to create a custom message
 
 # Define variables to store the current state of coordinates, feed rate, and extruder status.
 current_x, current_y, current_z, current_feed_rate, current_extrusion = None, None, None, None, None
@@ -40,51 +40,59 @@ def extract_gcode(line):
         if word.startswith("G"):
             gcode = word
         elif word.startswith("X"):
-            x = float(word[1:])
+            x = word[1:]
         elif word.startswith("Y"):
-            y = float(word[1:])
+            y = word[1:]
         elif word.startswith("Z"):
-            z = float(word[1:])
+            z = word[1:]
         elif word.startswith("F"):
-            feed_rate = float(word[1:])
+            feed_rate = word[1:]
         elif word.startswith("E"):
-            extrusion = float(word[1:])
+            extrusion = word[1:]
         elif word.startswith("M"):
             mcode = word
 
     return gcode, x, y, z, feed_rate, extrusion, mcode
 
+def current_position_callback(msg):
+    global current_x, current_y, current_z
+    current_x, current_y, current_z = msg.data[0], msg.data[1], msg.data[2]
+
 def main():
-    rospy.init_node('gcode_parser_node', anonymous=True)
-    position_pub = rospy.Publisher('/gcode_position', Float32MultiArray, queue_size=10)
-    rate = rospy.Rate(4) # 1hz
-    
-    parser = argparse.ArgumentParser(description="Extract and interpret G-code information from a G-code file.")
-    parser.add_argument("gcode_file", help="Path to the G-code file")
-    parser.add_argument("--output", type=int, default=1, choices=[0, 1], help="Enable (1) or disable (0) output")
-    args = parser.parse_args()
+    rospy.init_node("gcode_parser_node")
+    pub = rospy.Publisher("gcode_info", GCodeInfo, queue_size=10)
 
-    with open(args.gcode_file, "r") as file:
-        for line in file:
-            gcode, x, y, z, feed_rate, extrusion, extruder_on = update_current_state(line)
+    # Subscribe to the /currentPosition topic
+    rospy.Subscriber("/currentPosition", Float32MultiArray, current_position_callback)
 
-            if args.output == 1 and (gcode or x or y or z or feed_rate or extrusion or extruder_on):
-                position_data = [x, y, z]
-                position_msg = Float32MultiArray(data=position_data)
-                position_pub.publish(position_msg)
+    rate = rospy.Rate(10)
 
-                output_line = ["G-code: {}".format(gcode), "X: {}".format(x), "Y: {}".format(y), "Z: {}".format(z), "F: {}".format(feed_rate)]
+    while not rospy.is_shutdown():
+        # Check if the /currentPosition has been updated
+        if current_x is not None and current_y is not None and current_z is not None:
+            with open("your_gcode_file.gcode", "r") as file:
+                for line in file:
+                    gcode, x, y, z, feed_rate, extrusion, extruder_on = update_current_state(line)
 
-                if extruder_on:
-                    output_line.append("Extruder: On")
-                else:
-                    output_line.append("Extruder: Off")
+                    if (gcode or x or y or z or feed_rate or extrusion or extruder_on):
+                        gcode_info = GCodeInfo()
+                        gcode_info.gcode = gcode
+                        gcode_info.x = x
+                        gcode_info.y = y
+                        gcode_info.z = z
+                        gcode_info.feed_rate = feed_rate
+                        gcode_info.extruder_on = extruder_on
 
-                gcode_str = ", ".join(output_line)
-                rospy.loginfo(gcode_str)
-                
-                rate.sleep()
+                        pub.publish(gcode_info)
+                        rate.sleep()
+
+            # Reset current_x, current_y, and current_z after publishing
+            current_x, current_y, current_z = None, None, None
+
+        rate.sleep()
 
 if __name__ == "__main__":
-    main()
-
+    try:
+        main()
+    except rospy.ROSInterruptException:
+        pass
